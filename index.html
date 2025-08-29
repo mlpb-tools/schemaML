@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schéma Organisationnel Mission Locale</title>
+    <title>Schéma Organisationnel Concentrique</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,51 +16,71 @@
             max-width: 1200px;
             margin: auto;
             padding: 2rem;
-        }
-        .flow-container {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .level {
+        .concentric-container {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* Ratio 1:1 pour un cercle */
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        .concentric-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
             display: flex;
             justify-content: center;
+            align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
-            gap: 1rem;
+            padding: 2rem;
+            transition: all 0.5s ease-in-out;
         }
-        .card {
+        .circle-inner {
             background-color: #ffffff;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-            width: 100%;
-            max-width: 300px;
-            text-align: center;
-            padding: 1.5rem;
-            position: relative;
+            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        .circle-outer {
+            background-color: #e5e7eb;
+            z-index: 4;
+            padding: 4rem;
+        }
+        .circle-outermost {
+            background-color: #d1d5db;
+            z-index: 3;
+            padding: 8rem;
+        }
+        .role-card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+        .role-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
         .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #4a90e2;
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
         }
         .card-subtitle {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             color: #6b7280;
-            margin-bottom: 1rem;
         }
-        .card-content {
-            font-size: 0.875rem;
-            color: #4b5563;
-            line-height: 1.5;
-            text-align: left;
+        .color-box {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0.25rem;
         }
         .modal {
             display: none;
@@ -88,16 +108,6 @@
             overflow-y: auto;
             position: relative;
         }
-        .modal-header {
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
-        }
-        .modal-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1f2937;
-        }
         .close-button {
             position: absolute;
             top: 1rem;
@@ -111,26 +121,19 @@
         .close-button:hover {
             color: #1f2937;
         }
-        .line {
-            width: 2px;
-            height: 2rem;
-            background-color: #d1d5db;
+        .modal-header {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
         }
-        .level-line-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1f2937;
         }
-        .level-line {
-            width: 2px;
-            height: 2rem;
-            background-color: #d1d5db;
-        }
-        @media (max-width: 768px) {
-            .level {
-                flex-direction: column;
-                align-items: center;
-            }
+        .modal-body p {
+            margin-bottom: 1rem;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -139,73 +142,70 @@
     <div class="container text-center">
         <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-gray-800">Schéma Organisationnel & Interactions</h1>
         <p class="text-lg text-gray-600 mb-8">
-            Cliquez sur chaque carte pour voir la fiche fonctionnelle complète.
+            Une organisation concentrique centrée sur la **Jeunesse**.
+            Cliquez sur chaque cercle pour voir les rôles.
         </p>
 
-        <div class="flow-container">
-            <!-- Niveau Direction / Stratégie -->
-            <div class="level">
-                <div class="card" onclick="openModal('direction')">
-                    <h2 class="card-title">Direction</h2>
-                    <p class="card-subtitle">Pilotage stratégique</p>
+        <div class="concentric-container">
+            <!-- Cercle Intérieur: Jeunesse (le cœur) -->
+            <div class="concentric-circle circle-inner" style="width: 25%; height: 25%;">
+                <div class="role-card" style="background-color: #d60b52; color: white;">
+                    <div class="card-title">Jeunesse</div>
                 </div>
-            </div>
-            <div class="level-line-container">
-                <div class="level-line"></div>
             </div>
 
-            <!-- Niveau Fonctionnel Stratégique -->
-            <div class="level">
-                <div class="card" onclick="openModal('rio')">
-                    <h2 class="card-title">RIO</h2>
-                    <p class="card-subtitle">Responsable Innovation, Professionnalisation & Outillage</p>
+            <!-- Cercle Principal: Rôles d'intégration et d'accompagnement -->
+            <div class="concentric-circle circle-outer" style="width: 60%; height: 60%; transform: translate(-50%, -50%) rotate(0deg);">
+                <div class="absolute w-full h-full">
+                    <div class="absolute -top-10 left-1/2 transform -translate-x-1/2" style="transform: rotate(0deg);">
+                        <div class="role-card" onclick="openModal('conseillers')" style="background-color: #f39200; color: white;">
+                            <div class="card-title">Conseillers CEJ/PACEA</div>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 -right-10 transform -translate-y-1/2" style="transform: rotate(90deg);">
+                         <div class="role-card" onclick="openModal('ambassadeurs')" style="background-color: #95c11f; color: white;">
+                            <div class="card-title">Ambassadeurs</div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2" style="transform: rotate(180deg);">
+                        <div class="role-card" onclick="openModal('rio')" style="background-color: #2897d5; color: white;">
+                            <div class="card-title">RIO</div>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 -left-10 transform -translate-y-1/2" style="transform: rotate(270deg);">
+                        <div class="role-card" onclick="openModal('direction')" style="background-color: #a3195b; color: white;">
+                            <div class="card-title">Direction</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="level-line-container">
-                <div class="level-line"></div>
             </div>
 
-            <!-- Niveau Relais / Expertise -->
-            <div class="level">
-                <div class="card" onclick="openModal('ambassadeurs')">
-                    <h2 class="card-title">Ambassadeurs</h2>
-                    <p class="card-subtitle">Conseillers pivots & Passeurs stratégiques</p>
+            <!-- Cercle Externe: Fonctions Supports -->
+            <div class="concentric-circle circle-outermost" style="width: 100%; height: 100%; transform: translate(-50%, -50%) rotate(45deg);">
+                 <div class="absolute w-full h-full">
+                    <div class="absolute top-5 left-1/4 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(45deg);">
+                        <div class="role-card" onclick="openModal('coordinateurs')" style="background-color: #9f3d3f; color: white;">
+                            <div class="card-title">Coordinateurs</div>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/4 right-5 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(135deg);">
+                        <div class="role-card" onclick="openModal('programmation')" style="background-color: #171718; color: white;">
+                            <div class="card-title">Resp. Programmation CEJ</div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-5 right-1/4 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(225deg);">
+                        <div class="role-card" onclick="openModal('communication')" style="background-color: #f39200; color: white;">
+                            <div class="card-title">Chargé de Com'</div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-1/4 left-5 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(315deg);">
+                         <div class="role-card" onclick="openModal('labellisation')" style="background-color: #95c11f; color: white;">
+                            <div class="card-title">Resp. Labellisation</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="level-line-container">
-                <div class="level-line"></div>
             </div>
 
-            <!-- Niveau Exécution / Terrain -->
-            <div class="level">
-                <div class="card" onclick="openModal('conseillers')">
-                    <h2 class="card-title">Conseillers CEJ/PACEA</h2>
-                    <p class="card-subtitle">Intégrateurs de l’innovation sur le terrain</p>
-                </div>
-            </div>
-            <div class="level-line-container">
-                <div class="level-line"></div>
-            </div>
-            
-            <!-- Niveau Fonctions Supports -->
-            <div class="level">
-                <div class="card" onclick="openModal('coordinateurs')">
-                    <h2 class="card-title">Coordinateurs Territoriaux</h2>
-                    <p class="card-subtitle">Animation et cohérence des antennes</p>
-                </div>
-                <div class="card" onclick="openModal('programmation')">
-                    <h2 class="card-title">Resp. Programmation CEJ</h2>
-                    <p class="card-subtitle">Ingénierie et suivi du dispositif CEJ/PACEA</p>
-                </div>
-                <div class="card" onclick="openModal('communication')">
-                    <h2 class="card-title">Chargé de Communication</h2>
-                    <p class="card-subtitle">Valorisation des projets et des jeunes</p>
-                </div>
-                <div class="card" onclick="openModal('labellisation')">
-                    <h2 class="card-title">Resp. Labellisation & Pratiques</h2>
-                    <p class="card-subtitle">Qualité et conformité des pratiques professionnelles</p>
-                </div>
-            </div>
         </div>
     </div>
 
