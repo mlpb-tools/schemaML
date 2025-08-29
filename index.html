@@ -23,8 +23,8 @@
         .concentric-container {
             position: relative;
             width: 100%;
-            padding-top: 100%; /* Ratio 1:1 pour un cercle */
-            max-width: 600px;
+            padding-top: 100%; /* Ratio 1:1 for a perfect circle */
+            max-width: 700px;
             margin-bottom: 2rem;
         }
         .concentric-circle {
@@ -36,24 +36,26 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            padding: 2rem;
             transition: all 0.5s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         .circle-inner {
             background-color: #ffffff;
             z-index: 5;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 25%;
+            height: 25%;
+        }
+        .circle-middle {
+            background-color: #f3f4f6;
+            z-index: 4;
+            width: 65%;
+            height: 65%;
         }
         .circle-outer {
             background-color: #e5e7eb;
-            z-index: 4;
-            padding: 4rem;
-        }
-        .circle-outermost {
-            background-color: #d1d5db;
             z-index: 3;
-            padding: 8rem;
+            width: 95%;
+            height: 95%;
         }
         .role-card {
             background-color: #ffffff;
@@ -63,24 +65,22 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             text-align: center;
+            position: absolute;
+            width: 150px;
+            transform-origin: 50% 50%; /* Center the rotation */
         }
         .role-card:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
         .card-title {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
         .card-subtitle {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: #6b7280;
-        }
-        .color-box {
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 0.25rem;
         }
         .modal {
             display: none;
@@ -142,67 +142,52 @@
     <div class="container text-center">
         <h1 class="text-3xl sm:text-4xl font-bold mb-4 text-gray-800">Schéma Organisationnel & Interactions</h1>
         <p class="text-lg text-gray-600 mb-8">
-            Une organisation concentrique centrée sur la **Jeunesse**.
-            Cliquez sur chaque cercle pour voir les rôles.
+            Une organisation concentrique centrée sur la **Jeunesse** et l'**accompagnement**.
         </p>
 
         <div class="concentric-container">
-            <!-- Cercle Intérieur: Jeunesse (le cœur) -->
-            <div class="concentric-circle circle-inner" style="width: 25%; height: 25%;">
-                <div class="role-card" style="background-color: #d60b52; color: white;">
+            <!-- Inner Circle: The youth at the heart of the organization -->
+            <div class="concentric-circle circle-inner">
+                <div class="role-card absolute" style="background-color: #d60b52; color: white; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                     <div class="card-title">Jeunesse</div>
                 </div>
             </div>
 
-            <!-- Cercle Principal: Rôles d'intégration et d'accompagnement -->
-            <div class="concentric-circle circle-outer" style="width: 60%; height: 60%; transform: translate(-50%, -50%) rotate(0deg);">
-                <div class="absolute w-full h-full">
-                    <div class="absolute -top-10 left-1/2 transform -translate-x-1/2" style="transform: rotate(0deg);">
-                        <div class="role-card" onclick="openModal('conseillers')" style="background-color: #f39200; color: white;">
-                            <div class="card-title">Conseillers CEJ/PACEA</div>
-                        </div>
-                    </div>
-                    <div class="absolute top-1/2 -right-10 transform -translate-y-1/2" style="transform: rotate(90deg);">
-                         <div class="role-card" onclick="openModal('ambassadeurs')" style="background-color: #95c11f; color: white;">
-                            <div class="card-title">Ambassadeurs</div>
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2" style="transform: rotate(180deg);">
-                        <div class="role-card" onclick="openModal('rio')" style="background-color: #2897d5; color: white;">
-                            <div class="card-title">RIO</div>
-                        </div>
-                    </div>
-                    <div class="absolute top-1/2 -left-10 transform -translate-y-1/2" style="transform: rotate(270deg);">
-                        <div class="role-card" onclick="openModal('direction')" style="background-color: #a3195b; color: white;">
-                            <div class="card-title">Direction</div>
-                        </div>
-                    </div>
+            <!-- Middle Circle: Key roles directly interacting with youth and each other -->
+            <div class="concentric-circle circle-middle">
+                <div class="role-card" onclick="openModal('conseillers')" style="background-color: #f39200; color: white; top: 10%; left: 50%; transform: translate(-50%, 0);">
+                    <div class="card-title">Conseillers CEJ/PACEA</div>
+                </div>
+                <div class="role-card" onclick="openModal('ambassadeurs')" style="background-color: #95c11f; color: white; top: 50%; right: 0; transform: translate(0, -50%);">
+                    <div class="card-title">Ambassadeurs</div>
+                </div>
+                <div class="role-card" onclick="openModal('rio')" style="background-color: #2897d5; color: white; bottom: 10%; left: 50%; transform: translate(-50%, 0);">
+                    <div class="card-title">RIO</div>
+                </div>
+                <div class="role-card" onclick="openModal('direction')" style="background-color: #a3195b; color: white; top: 50%; left: 0; transform: translate(0, -50%);">
+                    <div class="card-title">Direction</div>
                 </div>
             </div>
 
-            <!-- Cercle Externe: Fonctions Supports -->
-            <div class="concentric-circle circle-outermost" style="width: 100%; height: 100%; transform: translate(-50%, -50%) rotate(45deg);">
-                 <div class="absolute w-full h-full">
-                    <div class="absolute top-5 left-1/4 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(45deg);">
-                        <div class="role-card" onclick="openModal('coordinateurs')" style="background-color: #9f3d3f; color: white;">
-                            <div class="card-title">Coordinateurs</div>
-                        </div>
-                    </div>
-                    <div class="absolute top-1/4 right-5 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(135deg);">
-                        <div class="role-card" onclick="openModal('programmation')" style="background-color: #171718; color: white;">
-                            <div class="card-title">Resp. Programmation CEJ</div>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-5 right-1/4 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(225deg);">
-                        <div class="role-card" onclick="openModal('communication')" style="background-color: #f39200; color: white;">
-                            <div class="card-title">Chargé de Com'</div>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-1/4 left-5 transform -translate-x-1/2 -translate-y-1/2" style="transform: rotate(315deg);">
-                         <div class="role-card" onclick="openModal('labellisation')" style="background-color: #95c11f; color: white;">
-                            <div class="card-title">Resp. Labellisation</div>
-                        </div>
-                    </div>
+            <!-- Outer Circle: Support functions -->
+            <div class="concentric-circle circle-outer">
+                <div class="role-card" onclick="openModal('programmation')" style="background-color: #9f3d3f; color: white; top: 0%; left: 25%; transform: translate(-50%, -50%);">
+                    <div class="card-title">Resp. Programmation</div>
+                </div>
+                <div class="role-card" onclick="openModal('labellisation')" style="background-color: #a3195b; color: white; top: 0%; left: 75%; transform: translate(-50%, -50%);">
+                    <div class="card-title">Resp. Labellisation</div>
+                </div>
+                <div class="role-card" onclick="openModal('communication')" style="background-color: #f39200; color: white; top: 50%; right: 0; transform: translate(50%, -50%);">
+                    <div class="card-title">Chargé de Com'</div>
+                </div>
+                <div class="role-card" onclick="openModal('coordinateurs')" style="background-color: #171718; color: white; bottom: 0%; left: 25%; transform: translate(-50%, 50%);">
+                    <div class="card-title">Coordinateurs</div>
+                </div>
+                <div class="role-card" style="background-color: #2897d5; color: white; bottom: 0%; left: 75%; transform: translate(-50%, 50%);">
+                    <div class="card-title">Partenaires</div>
+                </div>
+                <div class="role-card" style="background-color: #95c11f; color: white; top: 50%; left: 0; transform: translate(-50%, -50%);">
+                    <div class="card-title">Financeurs</div>
                 </div>
             </div>
 
@@ -300,7 +285,7 @@
                 title: "Direction",
                 content: `
                     <div class="card-content">
-                        <p><strong>🎯 Rôle stratégique :</strong> La Direction est responsable du pilotage stratégique de l'organisation. Elle définit la vision, les objectifs et les orientations globales, et assure l'alignement de toutes les fonctions avec la feuille de route de la Mission Locale.</p>
+                        <p><strong>� Rôle stratégique :</strong> La Direction est responsable du pilotage stratégique de l'organisation. Elle définit la vision, les objectifs et les orientations globales, et assure l'alignement de toutes les fonctions avec la feuille de route de la Mission Locale.</p>
                         <p><strong>🤝 Interactions :</strong> RIO, Ambassadeurs, Coordinateurs, Responsables de la Programmation, de la Communication et de la Labellisation.</p>
                         <p><strong>✅ Valeur ajoutée :</strong> Fournit un cadre de travail cohérent, assure la pérennité et le développement de la structure, et représente l'organisation auprès des instances nationales et des financeurs.</p>
                     </div>`
